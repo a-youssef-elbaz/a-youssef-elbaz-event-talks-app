@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Talks 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        .search-container {
+            padding: 1rem;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        #search {
+            width: 50%;
+            padding: 0.5rem;
+        }
+        .schedule {
+            margin-top: 1rem;
+        }
+        .talk {
+            background: #fff;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-left: 5px solid #333;
+        }
+        .talk h2 {
+            margin-top: 0;
+        }
+        .talk .time {
+            font-weight: bold;
+        }
+        .talk .speakers {
+            font-style: italic;
+        }
+        .talk .categories span {
+            background: #333;
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tech Talks 2026</h1>
+    </header>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Filter by category...">
+        </div>
+        <div id="schedule" class="schedule"></div>
+    </div>
+    <script>
+        const talks = [
+            {
+                "title": "The Future of Artificial Intelligence",
+                "speakers": ["Dr. Ada Lovelace"],
+                "categories": ["AI", "Machine Learning"],
+                "description": "A deep dive into the future of AI and its impact on society.",
+                "startTime": "10:00 AM",
+                "endTime": "11:00 AM"
+            },
+            {
+                "title": "Building Scalable Web Applications",
+                "speakers": ["Grace Hopper", "Charles Babbage"],
+                "categories": ["Web Development", "Scalability"],
+                "description": "Learn the best practices for building web applications that can handle millions of users.",
+                "startTime": "11:10 AM",
+                "endTime": "12:10 PM"
+            },
+            {
+                "title": "The Quantum Computing Revolution",
+                "speakers": ["Alan Turing"],
+                "categories": ["Quantum Computing", "Physics"],
+                "description": "An introduction to the mind-bending world of quantum computing.",
+                "startTime": "12:20 PM",
+                "endTime": "1:20 PM"
+            },
+            {
+                "title": "Cybersecurity in a Post-Quantum World",
+                "speakers": ["Margaret Hamilton"],
+                "categories": ["Cybersecurity", "Quantum Computing"],
+                "description": "How to secure our systems in the age of quantum computers.",
+                "startTime": "2:20 PM",
+                "endTime": "3:20 PM"
+            },
+            {
+                "title": "The Rise of Serverless Architectures",
+                "speakers": ["Tim Berners-Lee", "Vint Cerf"],
+                "categories": ["Serverless", "Cloud Computing"],
+                "description": "Explore the benefits and challenges of serverless computing.",
+                "startTime": "3:30 PM",
+                "endTime": "4:30 PM"
+            },
+            {
+                "title": "Blockchain: More Than Just Cryptocurrency",
+                "speakers": ["Satoshi Nakamoto"],
+                "categories": ["Blockchain", "Web3"],
+                "description": "A look at the potential of blockchain technology beyond digital currencies.",
+                "startTime": "4:40 PM",
+                "endTime": "5:40 PM"
+            }
+        ];
+
+        const scheduleContainer = document.getElementById('schedule');
+        const searchInput = document.getElementById('search');
+
+        function renderTalks(talksToRender) {
+            scheduleContainer.innerHTML = '';
+            talksToRender.forEach(talk => {
+                const talkElement = document.createElement('div');
+                talkElement.classList.add('talk');
+                talkElement.innerHTML = `
+                    <div class="time">${talk.startTime} - ${talk.endTime}</div>
+                    <h2>${talk.title}</h2>
+                    <div class="speakers">${talk.speakers.join(', ')}</div>
+                    <p>${talk.description}</p>
+                    <div class="categories">${talk.categories.map(cat => `<span>${cat}</span>`).join('')}</div>
+                `;
+                scheduleContainer.appendChild(talkElement);
+            });
+        }
+
+        function filterTalks() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredTalks = talks.filter(talk => {
+                return talk.categories.some(category => category.toLowerCase().includes(searchTerm));
+            });
+            renderTalks(filteredTalks);
+        }
+
+        searchInput.addEventListener('input', filterTalks);
+
+        // Initial render
+        renderTalks(talks);
+    </script>
+</body>
+</html>
